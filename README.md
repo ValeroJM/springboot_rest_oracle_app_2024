@@ -35,3 +35,29 @@ I used several annotation that will be used for the project:
 <code style="color : red">Attention!</code>
 When you create the variables you need for your database entity make sure that you are using Java Wrapper Classes otherwise the table will NOT be created in your Oracle database.
 Double check you are using Long, Double...
+
+## Session 2
+For this session I have created 2 folders and 2 Interfaces + 1 Class
+1. Folder: repo > CourseRepository (Interface)
+   * CourseRepository Interface: This class will **extends JpaRepository<Course, Serializable>**
+   * I am wondering why we do NOT extends JpaRepository in this way in the video: 
+   ```
+   @Repository
+   public interface CourseRepository extends JpaRepository<Course, Long> {
+   }
+   ```
+2. Folder: service > CourseService (Interface)
+    * We created a method using upsert -- It will be use to create and update
+    * We created a getById -- This method will retrieve a desire couser using Id
+    * We created a getAllCourses -- This method will retrieve all the available courses
+    * We created a deleteById -- This method will delete a desire method using Id
+
+3. Folder: service > CourseServiceImp (Class)
+    * This class **implements CourseService** (The interface will be injected and add during run time)
+    * We add @Service annotation on top of the class
+    * We add @Autowired annotation and instanciate the CourseRepository Interface. It will inject the repository interface into the Implementation service.
+    * We implemented all the methods we created in CourseSevice Interface
+      * Upsert Method: We use the autowired courseRepository.save() -- To insert / update a record
+      * GetById Method: It will store the DB Entity into an Optional. Then we validate that the object is Present, if it is present then we return it if not it will return null
+      * GetAllCourses Method: It will return all the Courses available in the database.
+      * DeleteById Method: It will validate if that record exist in the database then It will use deleteById(id). It the record does NOT exist then it will return no record found
