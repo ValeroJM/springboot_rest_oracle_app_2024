@@ -55,9 +55,18 @@ For this session I have created 2 folders and 2 Interfaces + 1 Class
 3. Folder: service > CourseServiceImp (Class)
     * This class **implements CourseService** (The interface will be injected and add during run time)
     * We add @Service annotation on top of the class
-    * We add @Autowired annotation and instanciate the CourseRepository Interface. It will inject the repository interface into the Implementation service.
+    * We add @Autowired annotation and instantiate the CourseRepository Interface. It will inject the repository interface into the Implementation service.
     * We implemented all the methods we created in CourseSevice Interface
       * Upsert Method: We use the autowired courseRepository.save() -- To insert / update a record
       * GetById Method: It will store the DB Entity into an Optional. Then we validate that the object is Present, if it is present then we return it if not it will return null
       * GetAllCourses Method: It will return all the Courses available in the database.
       * DeleteById Method: It will validate if that record exist in the database then It will use deleteById(id). It the record does NOT exist then it will return no record found
+
+## Session 3
+In this session we created a folder call rest and 1 class call CourseRestController where will inject our Service Interface and create our API mapping.
+We followed the next steps:
+1. We used @RestController annotation to mark this class as RestController
+2. We instantiated our CourseService as private and annotate it as @Autowired to inject our Service into our Controller
+3. We created a response for each method we created in our Service interface using the necessary annotation like: @PostMapping or @GetMapping or @PutMapping or @DeleteMapping
+4. We completed the implementation of the methods @PathVariable is a Variable is needed or @RequestBody (An object will be required) for @PostMapping
+5. In the return we added a ResponseEntity with 2 parameters: Status and HttpStatus + desire status
